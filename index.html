@@ -175,6 +175,7 @@
         </div>
     </div>
 
+    <!-- SCREENSAVER -->
     <div id="monsoonTechScreensaver" class="hidden fixed inset-0 z-[100000] bg-[#020714] flex flex-col items-center justify-center overflow-hidden font-tech transition-all duration-700 opacity-0 select-none">
         <div class="absolute inset-0 screensaver-grid opacity-50 pointer-events-none"></div>
         <div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-30 sc-scanline-animation pointer-events-none"></div>
@@ -225,6 +226,7 @@
         <span id="tooltipText"></span>
     </div>
 
+    <!-- MAIN DASHBOARD -->
     <div id="mainDashboardInterface" class="w-full flex flex-col justify-between flex-1 gap-5">
         <header class="w-full bg-[var(--bg-header)] backdrop-blur-md p-5 rounded-2xl border-2 border-[var(--border-color)] flex flex-col xl:flex-row justify-between items-center gap-5 transition-all shadow-md">
             <div class="flex items-center gap-4 w-full xl:w-5/12 min-w-0" data-tooltip="Panel Utama Sistem Monitoring Tsunami">
@@ -438,7 +440,8 @@
         </main>
     </div>
 
-    <div id="bmkgLiveWidget" class="fixed bottom-48 md:bottom-20 left-4 md:left-6 w-[calc(100vw-2rem)] md:w-[440px] bg-[#091124] border-2 border-[#00f0ff] rounded-xl flex flex-col shadow-[0_0_30px_rgba(0,240,255,0.25)] z-[10001] overflow-hidden hidden transition-transform duration-300">
+    <!-- BMKG WIDGET -->
+    <div id="bmkgLiveWidget" class="fixed bottom-24 md:bottom-20 left-4 md:left-6 w-[calc(100vw-2rem)] md:w-[440px] bg-[#091124] border-2 border-[#00f0ff] rounded-xl flex flex-col shadow-[0_0_30px_rgba(0,240,255,0.25)] z-[10001] overflow-hidden hidden transition-transform duration-300">
         <div class="bg-[#040a17] p-4 border-b border-[#00f0ff]/30 flex justify-between items-center select-none">
             <div class="flex items-center gap-2">
                 <div class="relative flex h-3 w-3">
@@ -452,7 +455,8 @@
         <div class="p-4 space-y-3 font-mono text-xs max-h-[300px] overflow-y-auto text-slate-300 bg-slate-950/95" id="bmkgFeedContainer"></div>
     </div>
 
-    <div id="sejarahGempaWidget" class="fixed bottom-48 md:bottom-20 left-4 md:left-6 w-[calc(100vw-2rem)] md:w-[460px] bg-[#091124] border-2 border-[#f59e0b] rounded-xl flex flex-col shadow-[0_0_30px_rgba(245,158,11,0.25)] z-[10001] overflow-hidden hidden transition-transform duration-300">
+    <!-- SEJARAH GEMPA WIDGET -->
+    <div id="sejarahGempaWidget" class="fixed bottom-24 md:bottom-20 left-4 md:left-6 w-[calc(100vw-2rem)] md:w-[460px] bg-[#091124] border-2 border-[#f59e0b] rounded-xl flex flex-col shadow-[0_0_30px_rgba(245,158,11,0.25)] z-[10001] overflow-hidden hidden transition-transform duration-300">
         <div class="bg-[#040a17] p-4 border-b border-[#f59e0b]/30 flex justify-between items-center select-none">
             <div class="flex items-center gap-2">
                 <i class="fa-solid fa-book-archive text-[#f59e0b]"></i>
@@ -463,7 +467,8 @@
         <div class="p-4 space-y-3 font-mono text-xs max-h-[320px] overflow-y-auto text-slate-300 bg-slate-950/95" id="historicalFeedContainer"></div>
     </div>
 
-    <div id="monsoonFloatingInterface" class="fixed top-24 right-6 w-[360px] sm:w-[420px] bg-[#030712]/95 border-2 border-cyan-400 rounded-2xl flex flex-col shadow-[0_0_35px_rgba(6,182,212,0.4)] z-[10001] overflow-hidden hidden transition-all duration-300">
+    <!-- MONSOON & ENSO WIDGET -->
+    <div id="monsoonFloatingInterface" class="fixed bottom-24 md:bottom-20 right-4 md:right-[5.5rem] w-[360px] sm:w-[420px] bg-[#030712]/95 border-2 border-cyan-400 rounded-2xl flex flex-col shadow-[0_0_35px_rgba(6,182,212,0.4)] z-[10001] overflow-hidden hidden transition-all duration-300">
         <div class="bg-gradient-to-r from-slate-950 to-indigo-950 p-3.5 border-b border-cyan-500/40 flex justify-between items-center select-none">
             <div class="flex items-center gap-2">
                 <i class="fa-solid fa-cloud-sun-rain text-cyan-400 text-lg animate-pulse"></i>
@@ -530,6 +535,7 @@
         </div>
     </div>
 
+    <!-- LEFT BOTTOM FLOATING BUTTONS -->
     <div class="fixed bottom-4 md:bottom-6 left-4 right-4 md:right-auto md:left-6 z-[10002] flex flex-row gap-2 md:gap-3 select-none pointer-events-auto justify-center md:justify-start">
         <button onclick="toggleFloatingWidget('bmkgLiveWidget')" class="flex-1 md:flex-none h-11 px-2 md:px-4 rounded-xl bg-slate-900 border-2 border-cyan-500 flex items-center justify-center gap-1.5 md:gap-2 text-white shadow-2xl cursor-pointer hover:scale-105 active:scale-95 transition-all text-[10px] md:text-xs font-tech font-bold uppercase tracking-wider">
             <div class="relative flex h-3 w-3 shrink-0">
@@ -544,7 +550,8 @@
         </button>
     </div>
 
-    <div id="chatBotLauncherPanel" class="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-[10002] flex items-center gap-2 md:gap-3 pointer-events-auto select-none">
+    <!-- RIGHT BOTTOM FLOATING LAUNCHER -->
+    <div id="chatBotLauncherPanel" class="fixed bottom-4 md:bottom-6 right-4 md:right-6 z-[10002] flex items-center gap-2 md:gap-3 pointer-events-auto select-none">
         <button onclick="toggleFloatingGroupVisibility()" id="btnGroupToggle" class="h-11 w-11 rounded-full bg-slate-900 border-2 border-cyan-500 flex items-center justify-center text-cyan-400 shadow-2xl cursor-pointer hover:scale-110 transition-all">
             <i id="iconGroupToggle" class="fa-solid fa-angles-right text-sm"></i>
         </button>
@@ -557,7 +564,7 @@
                 <i id="iconPredictive" class="fa-solid fa-microchip text-sm animate-pulse"></i>
                 <span class="absolute top-0 right-0 h-2.5 w-2.5 bg-emerald-400 rounded-full border border-white"></span>
             </button>
-            <button onclick="toggleMonsoonInterface()" class="h-11 w-11 rounded-full bg-slate-900 border border-amber-500 flex items-center justify-center text-amber-500 shadow-2xl cursor-pointer hover:scale-110 transition-all" title="Buka Interface Muson & ENSO">
+            <button onclick="toggleMonsoonInterface()" id="btnMonsoonEnso" class="h-11 w-11 rounded-full bg-slate-900 border border-amber-500 flex items-center justify-center text-amber-500 shadow-2xl cursor-pointer hover:scale-110 transition-all" title="Buka Interface Muson & ENSO">
                 <i class="fa-solid fa-cloud-sun-rain text-sm"></i>
             </button>
             <button onclick="refreshApplicationData()" class="h-11 w-11 rounded-full bg-slate-900 border border-emerald-500 flex items-center justify-center text-emerald-400 shadow-2xl cursor-pointer hover:scale-110 transition-all" title="Refresh Live Data">
@@ -565,12 +572,18 @@
             </button>
         </div>
 
+        <!-- VOICE ASSISTANT TOGGLE MOVED HERE -->
+        <button onclick="toggleVoiceAssistant()" id="btnVoiceToggle" class="h-11 w-11 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.5)] cursor-pointer hover:scale-110 transition-all" title="Aktif/Nonaktifkan Asisten Suara (TTS)">
+            <i id="iconVoiceToggle" class="fa-solid fa-volume-high text-base"></i>
+        </button>
+
         <button onclick="toggleChatWindow()" class="h-12 w-12 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center text-white shadow-2xl cursor-pointer hover:scale-110 active:scale-90 transition-transform">
             <i class="fa-solid fa-robot text-xl text-cyan-400"></i>
         </button>
     </div>
 
-    <div id="chatWindow" class="fixed bottom-48 md:bottom-24 right-4 md:right-6 w-[calc(100vw-2rem)] md:w-[440px] h-[520px] bg-slate-900 border-2 border-slate-700 rounded-2xl flex-col hidden z-[10002] overflow-hidden shadow-2xl transition-all duration-300">
+    <!-- AI CHAT WINDOW -->
+    <div id="chatWindow" class="fixed bottom-20 md:bottom-24 right-4 md:right-6 w-[calc(100vw-2rem)] md:w-[440px] h-[520px] bg-slate-900 border-2 border-slate-700 rounded-2xl flex-col hidden z-[10002] overflow-hidden shadow-2xl transition-all duration-300">
         <div class="bg-gradient-to-r from-slate-950 to-indigo-950 p-3.5 border-b border-slate-800 flex flex-col gap-2 select-none">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-2">
@@ -588,7 +601,7 @@
         <div id="chatMessages" class="flex-1 p-3 overflow-y-auto space-y-3 font-mono text-xs text-slate-200 bg-slate-950">
             <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 leading-relaxed">
                 <span class="text-cyan-400 block font-bold mb-1">&gt;_ SYSTEM INITIALIZED:</span>
-                Konsol otentikasi aktif. Gunakan tombol taktis di bawah untuk melakukan asimilasi, modeling geoteknik, dan evaluasi data mitigasi secara kilat.
+                Konsol otentikasi aktif dan terhubung ke API Pengetahuan Global. Ketik atau gunakan suara Anda untuk memerintah, mencari referensi Wikipedia, atau melakukan kalkulasi navigasi.
             </div>
         </div>
 
@@ -599,11 +612,13 @@
         </div>
 
         <div class="p-2 bg-slate-900 border-t border-slate-800 flex gap-1.5">
-            <input type="text" id="chatInput" onkeydown="if(event.key==='Enter') processChatMessage()" placeholder="Ketik kata kunci analisis mitigasi..." class="flex-1 bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 font-bold placeholder-slate-600">
+            <button id="micBtn" onclick="startVoiceRecognition()" title="Perintah Suara" class="bg-slate-950 border border-slate-700 hover:bg-slate-800 text-cyan-400 px-3.5 rounded-lg text-xs font-bold cursor-pointer flex items-center justify-center transition-colors"><i class="fa-solid fa-microphone"></i></button>
+            <input type="text" id="chatInput" onkeydown="if(event.key==='Enter') processChatMessage()" placeholder="Ketik / ucapkan kata kunci pertanyaan..." class="flex-1 bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 font-bold placeholder-slate-600">
             <button onclick="processChatMessage()" class="bg-cyan-700 hover:bg-cyan-600 text-white px-3.5 rounded-lg text-xs font-bold cursor-pointer flex items-center justify-center shadow-md"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
 
+    <!-- FULLSCREEN MAP -->
     <div id="gisFullScreenWrapper" class="hidden fixed inset-0 z-[9999] bg-slate-950 w-full h-full flex flex-col">
         <div id="mapAlertBannerFS" class="absolute top-20 left-1/2 transform -translate-x-1/2 w-11/12 md:w-3/4 max-w-2xl z-[1000] bg-red-950/95 border-2 border-red-500 rounded-xl text-white p-3 text-center font-tech text-xs md:text-sm font-bold flex items-center justify-center gap-3 hidden shadow-[0_0_20px_rgba(239,68,68,0.5)] backdrop-blur-sm transition-all pointer-events-none">
             <i class="fa-solid fa-triangle-exclamation text-xl text-yellow-400 text-blink"></i>
@@ -657,6 +672,7 @@
         <div id="fullScreenWeatherContainer" class="absolute inset-0 w-full h-full z-10 hidden"></div>
     </div>
 
+    <!-- HELP SYSTEM MODAL -->
     <div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[10005] flex items-center justify-center p-4 hidden animate-fade-in">
         <div class="bg-slate-900 border-2 border-emerald-500 p-6 rounded-2xl max-w-2xl w-full flex flex-col gap-4 max-h-[85vh] overflow-y-auto shadow-2xl">
             <div class="flex justify-between items-center border-b-2 border-slate-800 pb-2 select-none">
@@ -665,25 +681,26 @@
             </div>
             <div class="space-y-4 font-mono text-xs md:text-sm text-slate-200 leading-relaxed">
                 <div class="p-3 bg-slate-950 rounded-xl border border-cyan-500/30">
-                    <strong class="text-cyan-400 font-tech block mb-1"><i class="fa-solid fa-microchip mr-2"></i>FITUR SISTEM</strong>
-                    Pemantauan seismik real-time, simulasi parameter gempa custom, radar cuaca/laut interaktif, dan terminal AI komputasi prediktif.
+                    <strong class="text-cyan-400 font-tech block mb-1"><i class="fa-solid fa-microchip mr-2"></i>FITUR SISTEM & UI</strong>
+                    Pemantauan seismik real-time, simulasi parameter gempa custom, radar cuaca/laut interaktif, komputasi prediktif muson & ENSO, serta antarmuka yang bersih bebas tumpang tindih.
+                </div>
+                <div class="p-3 bg-slate-950 rounded-xl border border-blue-500/30">
+                    <strong class="text-blue-400 font-tech block mb-1"><i class="fa-solid fa-robot mr-2"></i>ASISTEN AI & SUARA</strong>
+                    Terminal interaktif dengan kemampuan analisis dinamis terintegrasi API Wikipedia & Google Search. Tekan ikon mikrofon untuk menginput perintah suara, dan gunakan ikon <i>Speaker Melayang</i> di sebelah kanan layar untuk mengaktifkan bacaan otomatis (Text-to-Speech) penjelasan AI.
                 </div>
                 <div class="p-3 bg-slate-950 rounded-xl border border-orange-500/30">
                     <strong class="text-orange-400 font-tech block mb-1"><i class="fa-solid fa-shield-halved mr-2"></i>MITIGASI (20-20-20)</strong>
                     Jika guncangan terasa >20 detik, evakuasi pesisir dalam <20 menit, ke ketinggian >20 meter. Tinjau ulang kekuatan pondasi infrastruktur vital.
                 </div>
-                <div class="p-3 bg-slate-950 rounded-xl border border-purple-500/30">
-                    <strong class="text-purple-400 font-tech block mb-1"><i class="fa-solid fa-table mr-2"></i>MATRIK EVALUASI</strong>
-                    Kalkulasi ancaman didasarkan pada rasio: Kedalaman vs Magnitudo. Gempa dangkal (&lt;50km) dengan M&gt;7.0 pada sesar naik (Thrust) memicu protokol AWAS.
-                </div>
                 <div class="p-3 bg-slate-950 rounded-xl border border-emerald-500/30">
                     <strong class="text-emerald-400 font-tech block mb-1"><i class="fa-solid fa-code mr-2"></i>DATA PROGRAMMER</strong>
-                    Pengembang utama sistem ini terintegrasi pada modul <b>Creator</b>, melingkupi analitik algoritma, GIS, dan antarmuka UI/UX.
+                    Pengembang utama sistem ini terintegrasi pada modul <b>Creator</b>, melingkupi analitik algoritma, GIS, asisten AI API global, dan antarmuka responsif.
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- CREATOR MODAL -->
     <div id="creatorModal" class="fixed inset-0 z-[10005] hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 select-text">
         <div id="draggablePanel" class="bg-slate-900 border-2 rounded-2xl w-full max-w-md p-5 shadow-2xl scale-100 transition-transform animate-cyber-glow">
             <div class="flex justify-between items-center border-b-2 border-slate-800 pb-2 mb-3 select-none">
@@ -729,6 +746,9 @@
         let currentSystemIdleSecondsCounter = 0;
         const maximumIdleLimitBeforeActivation = 300; 
 
+        // Variable Fitur Asisten Suara
+        let isVoiceAssistantEnabled = true;
+
         const historicalCatalog = [
             { name: "GEMPA KATALISTIK & TSUNAMI ACEH (2004)", mag: 9.1, coords: [3.30, 95.60], depth: 25, fault: "thrust", desc: "Sesar Megathrust barat Sumatra patah secara masif, memicu rambatan gelombang tsunami destructive masif setinggi 30 meter." },
             { name: "TSUNAMI PALU DONGGALA & LIKUIFAKSI (2018)", mag: 7.5, coords: [-0.20, 119.85], depth: 12, fault: "strike", desc: "Pergerakan mendatar zona Sesar Palu-Koro memicu tsunami lokal merusak di dalam koridor Teluk Palu." },
@@ -765,6 +785,67 @@
             }, 300);
         });
 
+        // ================= FITUR TEXT-TO-SPEECH ===================
+        function toggleVoiceAssistant() {
+            isVoiceAssistantEnabled = !isVoiceAssistantEnabled;
+            const icon = document.getElementById('iconVoiceToggle');
+            const btn = document.getElementById('btnVoiceToggle');
+            
+            if(isVoiceAssistantEnabled) {
+                icon.className = "fa-solid fa-volume-high text-base";
+                btn.classList.replace("border-slate-600", "border-cyan-400");
+                btn.classList.replace("text-slate-500", "text-cyan-400");
+                speakText("Asisten suara diaktifkan. Saya siap membantu.");
+            } else {
+                icon.className = "fa-solid fa-volume-xmark text-base";
+                btn.classList.replace("border-cyan-400", "border-slate-600");
+                btn.classList.replace("text-cyan-400", "text-slate-500");
+                if('speechSynthesis' in window) window.speechSynthesis.cancel();
+            }
+        }
+
+        function speakText(text) {
+            if (!isVoiceAssistantEnabled || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel(); 
+            const cleanText = text.replace(/<[^>]*>?/gm, ''); 
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = 'id-ID';
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // ================= FITUR SPEECH-TO-TEXT ===================
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert("Browser Anda tidak mendukung fitur pengenalan suara.");
+                return;
+            }
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'id-ID';
+            recognition.start();
+
+            const micBtn = document.getElementById('micBtn');
+            micBtn.classList.add('text-red-500', 'animate-pulse');
+            micBtn.classList.remove('text-cyan-400');
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('chatInput').value = transcript;
+                processChatMessage();
+            };
+
+            recognition.onend = function() {
+                micBtn.classList.remove('text-red-500', 'animate-pulse');
+                micBtn.classList.add('text-cyan-400');
+            };
+            
+            recognition.onerror = function(event) {
+                console.error("Speech Recognition Error", event);
+                micBtn.classList.remove('text-red-500', 'animate-pulse');
+                micBtn.classList.add('text-cyan-400');
+            };
+        }
+
         function initGlobalTooltipTracking() {
             const tooltipBox = document.getElementById('dynamicTooltip');
             const tooltipContent = document.getElementById('tooltipText');
@@ -794,29 +875,6 @@
                     tooltipBox.classList.add('opacity-0');
                     setTimeout(() => { if (tooltipBox.classList.contains('opacity-0')) tooltipBox.classList.add('hidden'); }, 200); 
                 });
-
-                element.addEventListener('touchstart', (e) => {
-                    clearTimeout(mobileTooltipTimeout);
-                    tooltipContent.innerText = element.getAttribute('data-tooltip');
-                    tooltipBox.classList.remove('hidden', 'opacity-0');
-                    tooltipBox.classList.add('opacity-100');
-
-                    const touch = e.touches[0];
-                    const tooltipRect = tooltipBox.getBoundingClientRect();
-                    let posX = touch.clientX + 10;
-                    let posY = touch.clientY - tooltipRect.height - 10;
-                    if (posX < 10) posX = 10;
-                    if (posY < 10) posY = touch.clientY + 20;
-                    
-                    tooltipBox.style.left = `${posX}px`;
-                    tooltipBox.style.top = `${posY}px`;
-
-                    mobileTooltipTimeout = setTimeout(() => {
-                        tooltipBox.classList.remove('opacity-100');
-                        tooltipBox.classList.add('opacity-0');
-                        setTimeout(() => { if (tooltipBox.classList.contains('opacity-0')) tooltipBox.classList.add('hidden'); }, 200);
-                    }, 3000);
-                }, { passive: true });
             });
         }
 
@@ -953,21 +1011,26 @@
                 btn.className = "h-11 w-11 rounded-full bg-gradient-to-r from-blue-900 to-slate-950 border border-cyan-500 flex items-center justify-center text-cyan-400 shadow-2xl cursor-pointer hover:scale-110 transition-all relative";
                 badge.innerText = "ALGO SYNC ON";
                 badge.className = "text-[8px] px-1.5 bg-blue-950 border border-blue-500 text-blue-400 rounded font-mono font-bold animate-pulse";
+                speakText("Algoritma Prediktif diaktifkan.");
             } else {
                 btn.className = "h-11 w-11 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-slate-500 shadow-2xl cursor-pointer hover:scale-110 transition-all relative";
                 badge.innerText = "ALGO SYNC OFF";
                 badge.className = "text-[8px] px-1.5 bg-slate-950 border border-slate-700 text-slate-500 rounded font-mono font-bold";
+                speakText("Algoritma Prediktif dimatikan.");
             }
             if(mapLocationClickMarker && mapLocationClickMarker.isPopupOpen()) mapLocationClickMarker.closePopup();
         }
 
         function toggleMonsoonInterface() {
             const mInterface = document.getElementById("monsoonFloatingInterface");
+            const isHidden = mInterface.classList.contains("hidden");
             mInterface.classList.toggle("hidden");
-            calculateDynamicMonsoonParameters();
+            if (isHidden) {
+                calculateDynamicMonsoonParameters(true);
+            }
         }
 
-        function calculateDynamicMonsoonParameters() {
+        function calculateDynamicMonsoonParameters(isTriggeredVoice = false) {
             const currentMonth = new Date().getMonth(); 
             let isMusonBarat = (currentMonth >= 9 || currentMonth <= 3); 
 
@@ -981,9 +1044,9 @@
             
             if(isMusonBarat) {
                 statusText = "INTENSITAS MUSON BARAT MAPAN (MUSIM HUJAN)";
-                cuacaText = "HUJAN SEDANG - LEBAT";
+                cuacaText = "HUJAN SEDANG LEBAT";
                 ensoVal = -1.71;
-                ensoString = `<i class="fa-solid fa-cloud-showers-heavy animate-bounce mr-1"></i>LA NIÑA (${ensoVal}) [BASAH]`;
+                ensoString = `<i class="fa-solid fa-cloud-showers-heavy text-blue-400 animate-bounce mr-1"></i>LA NIÑA (${ensoVal}) [BASAH]`;
             }
 
             document.getElementById("mpi-status-display").innerText = statusText;
@@ -1015,6 +1078,10 @@
                 barEnso.style.width = (ensoVal * 20) + "%";
                 barEnso.style.marginLeft = "50%";
             }
+            
+            if(isTriggeredVoice) {
+                speakText(`Menampilkan Analisis Meteorologi. Status indeks: ${statusText}. Kondisi cuaca diprediksi ${cuacaText}.`);
+            }
         }
 
         function refreshApplicationData() {
@@ -1023,6 +1090,7 @@
             const msgHistory = document.getElementById('chatMessages');
             msgHistory.innerHTML += `<div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 text-emerald-400 leading-relaxed">&gt;_ SYSTEM: Rekursi data feed BMKG berhasil di-refresh paksa.</div>`;
             msgHistory.scrollTop = msgHistory.scrollHeight;
+            speakText("Data sinkronisasi sensor BMKG berhasil direfresh.");
         }
 
         async function fetchBMKGData() {
@@ -1089,7 +1157,7 @@
             
             renderMapMarkers(g.coords, g.loc, g.mag, isTsunamiPotential, g.potensi, g.time);
             evaluasiAlertSistemManual(parseFloat(g.mag), parseInt(g.depth.replace(' km', '')), isTsunamiPotential);
-            calculateDynamicMonsoonParameters();
+            calculateDynamicMonsoonParameters(false);
         }
 
         function renderMapMarkers(coords, title, mag, isTsunami, impacts, dateTimeStr) {
@@ -1200,6 +1268,8 @@
                     offset: L.point(0, -6),
                     autoPanPadding: L.point(20, 100)
                 }).openPopup();
+                
+                speakText("Titik koordinat berhasil dikalkulasi melalui antarmuka holografik geospatial.");
             });
         }
 
@@ -1300,7 +1370,9 @@
             document.getElementById("slider-depth").value = depth;
             document.getElementById("select-fault").value = fault;
             evaluasiAlertSistemManual(mag, depth, fault === "thrust");
-            calculateDynamicMonsoonParameters();
+            calculateDynamicMonsoonParameters(false);
+            
+            speakText(`Navigasi sistem mengarah ke ${name} dengan magnitudo ${mag}.`);
         }
 
         function toggleEmergencyBanners(show) {
@@ -1365,7 +1437,7 @@
             document.getElementById("quake-impact-val").innerText = faultType === "thrust" ? "Potensi Air Pasang Naik" : "Aman";
 
             evaluasiAlertSistemManual(magnitude, depth, faultType === "thrust" || faultType === "normal");
-            calculateDynamicMonsoonParameters();
+            calculateDynamicMonsoonParameters(false);
         }
 
         function executeUniversalSearch(inputId, suggestionId) {
@@ -1410,9 +1482,9 @@
         }
 
         const pilarInformasiData = {
-            1: { title: "1. SEISMOMETER KEBENCANAAN NETWORK", desc: "Sensor fisis pencatat rambatan rambat gelombang kejut bumi guna mengalkulasi magnitudo episentrum secara otomatis." },
-            2: { title: "2. TIDE GAUGE TELEMETRI PANTAI", desc: "Alat pengukur tinggi muka air laut pantai pelabuhan pembaca fluktuasi pasang surut kilat pasca deformasi dasar samudra samudra lepas." },
-            3: { title: "3. INTEGRASI INABUOY OBPR SENSOR", desc: "Sistem pelampung samudra dilengkapi Ocean Bottom Pressure Recorder (OBPR) mendeteksi anomali perubahan tinggi gelombang tekanan hidrostatik dasar samudra lepas." },
+            1: { title: "1. SEISMOMETER KEBENCANAAN NETWORK", desc: "Sensor fisis pencatat rambatan gelombang kejut bumi guna mengalkulasi magnitudo episentrum secara otomatis." },
+            2: { title: "2. TIDE GAUGE TELEMETRI PANTAI", desc: "Alat pengukur tinggi muka air laut pantai pelabuhan pembaca fluktuasi pasang surut kilat pasca deformasi dasar samudra lepas." },
+            3: { title: "3. INTEGRASI INABUOY OBPR SENSOR", desc: "Sistem pelampung samudra dilengkapi Ocean Bottom Pressure Recorder mendeteksi anomali perubahan tinggi gelombang tekanan hidrostatik." },
             4: { title: "4. BEACH RADAR HF COHERENT DETECTOR", desc: "Stasiun pancar radar frekuensi tinggi pantai untuk monitoring anomali arus permukaan pantai secara real-time dinamis harian." }
         };
 
@@ -1423,6 +1495,7 @@
             document.getElementById(`btn-pilar-${id}`).className = "pilar-btn px-2 py-2 text-center rounded-lg font-tech text-[11px] border-2 border-cyan-500 bg-cyan-950/40 text-cyan-400 font-black cursor-pointer transition-all";
             const targetPilar = pilarInformasiData[id];
             document.getElementById('pilar-content').innerHTML = `<h4 class="font-tech text-xs md:text-sm text-[var(--text-main)] font-black mb-1">${targetPilar.title}</h4><p class="text-xs md:text-sm text-[var(--text-muted)] font-mono font-bold leading-relaxed">${targetPilar.desc}</p>`;
+            speakText(targetPilar.title + ". " + targetPilar.desc);
         }
 
         function injectWindyIframe(targetHolderId) {
@@ -1435,7 +1508,11 @@
             const isCurrentlyHidden = targetWidget.classList.contains('hidden');
             document.getElementById('bmkgLiveWidget').classList.add('hidden');
             document.getElementById('sejarahGempaWidget').classList.add('hidden');
-            if (isCurrentlyHidden) targetWidget.classList.remove('hidden');
+            if (isCurrentlyHidden) {
+                targetWidget.classList.remove('hidden');
+                if(widgetId === 'bmkgLiveWidget') speakText("Membuka feed peringatan dini seismik B M K G.");
+                if(widgetId === 'sejarahGempaWidget') speakText("Membuka katalog historis arsip sejarah gempa bumi.");
+            }
         }
 
         function toggleMapWeatherFlip(view) {
@@ -1459,6 +1536,7 @@
                     fsBtnWeather.className = "px-3 py-1.5 rounded-md bg-cyan-600 text-white cursor-pointer font-bold";
                     fsBtnMap.className = "px-3 py-1.5 rounded-md text-slate-400 cursor-pointer font-bold";
                     basemapGroup.classList.add('hidden');
+                    speakText("Beralih ke tampilan satelit dan gelombang radar laut.");
                 } else {
                     fsWeatherContainer.innerHTML = '';
                     fsWeatherContainer.classList.add('hidden');
@@ -1471,6 +1549,7 @@
                     if (mapInstance) {
                         setTimeout(() => { mapInstance.invalidateSize({ pan: false }); mapInstance.setView(selectedActiveCoordinates, mapInstance.getZoom(), { animate: false }); }, 50); 
                     }
+                    speakText("Kembali ke antarmuka peta G I S Indonesia.");
                 }
                 return;
             }
@@ -1480,6 +1559,7 @@
                 if(btnWeather) btnWeather.className = "px-3 py-1.5 rounded-md bg-cyan-600 text-white font-black cursor-pointer shadow-md";
                 if(btnMap) btnMap.className = "px-3 py-1.5 rounded-md text-[var(--text-muted)] hover:text-cyan-600 font-bold cursor-pointer";
                 injectWindyIframe('backWeatherHolder');
+                speakText("Beralih ke tampilan satelit dan gelombang radar laut.");
             } else {
                 flipper.classList.remove('flipped');
                 if(btnMap) btnMap.className = "px-3 py-1.5 rounded-md bg-cyan-600 text-white font-black cursor-pointer shadow-md";
@@ -1487,6 +1567,7 @@
                 if (mapInstance) {
                     setTimeout(() => { mapInstance.invalidateSize({ pan: false }); mapInstance.setView(selectedActiveCoordinates, mapInstance.getZoom(), { animate: false }); }, 120);
                 }
+                speakText("Kembali ke antarmuka peta G I S Indonesia.");
             }
         }
 
@@ -1516,6 +1597,7 @@
                     mapInstance.setView(selectedActiveCoordinates, mapInstance.getZoom(), { animate: false }); 
                 }, 300);
             }
+            speakText("Masuk ke mode layar penuh.");
         }
 
         function exitMapFullScreenMode() {
@@ -1580,7 +1662,10 @@
 
         function toggleChatWindow() {
             const win = document.getElementById('chatWindow');
-            win.classList.toggle('hidden'); win.classList.toggle('flex');
+            const isHidden = win.classList.contains('hidden');
+            win.classList.toggle('hidden'); 
+            win.classList.toggle('flex');
+            if(isHidden) speakText("Terminal interaktif asisten A I diaktifkan.");
         }
 
         function triggerChatShortcut(type) {
@@ -1588,6 +1673,7 @@
             if(type === 'analisa_gempa') {
                 messageHistory.innerHTML += `<div class="bg-slate-800 p-2.5 rounded-xl text-right max-w-[85%] ml-auto text-white font-bold">Minta Analisa Gempa Bumi Terkini</div>`;
                 let reply = "<strong class='text-cyan-400'>[ANALISIS TEKNIS CORE SEISMIK]:</strong> Melacak gelombang P-Wave & S-Wave... <br><br>";
+                let speechReply = "Melacak gelombang seismik.";
                 if(lastAutoQuakeData) {
                     reply += `<div class='grid grid-cols-1 gap-1'>
                                 <span>🗓️ Waktu Kejadian: <strong class='text-cyan-400'>${lastAutoQuakeData.Tanggal} | ${lastAutoQuakeData.Jam}</strong></span>
@@ -1597,20 +1683,30 @@
                               </div>
                               <br>
                               Mengevaluasi integrasi struktural dan <strong class='text-rose-400'>kekuatan batuan/pondasi setempat</strong>. Status Potensi: <span class='text-amber-400 font-bold animate-pulse'>${lastAutoQuakeData.Potensi}</span>.`;
+                    speechReply += ` Mengevaluasi kekuatan gempa di ${lastAutoQuakeData.Wilayah} dengan magnitudo ${lastAutoQuakeData.Magnitude} dan status potensi ${lastAutoQuakeData.Potensi}.`;
                 } else {
                     reply += "Mengambil telemetri asimilasi JSON live BMKG, memproses stress-drop patahan lempeng aktif samudra.";
+                    speechReply += " Mengambil log dari satelit BMKG secara live.";
                 }
-                setTimeout(() => { messageHistory.innerHTML += `<div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed">${reply}</div>`; messageHistory.scrollTop = messageHistory.scrollHeight; }, 200);
+                setTimeout(() => { 
+                    messageHistory.innerHTML += `<div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed">${reply}</div>`; 
+                    messageHistory.scrollTop = messageHistory.scrollHeight; 
+                    speakText(speechReply);
+                }, 200);
             }
             else if(type === 'mitigasi') {
                 messageHistory.innerHTML += `<div class="bg-slate-800 p-2.5 rounded-xl text-right max-w-[85%] ml-auto text-white font-bold">Minta Protokol Mitigasi</div>`;
                 let reply = "<strong class='text-orange-400 font-black tracking-wide text-sm mb-2 block animate-pulse'>[PROTOKOL MITIGASI LINTAS SEKTORAL 20-20-20]</strong>" +
                             "<ul class='list-disc pl-4 space-y-2'>" +
                             "<li><strong class='text-cyan-400'>Masyarakat Pesisir:</strong> Jika guncangan kontinu <strong class='text-white'>20 Detik</strong>, evakuasi <strong class='text-white'>20 Menit</strong> ke ketinggian <strong class='text-white'>20 Meter</strong>.</li>" +
-                            "<li><strong class='text-emerald-400'>Infrastruktur Sipil & SDA:</strong> Segera evaluasi stabilitas struktural, pengujian kekuatan tanah mekanik, serta review file engineering bendungan/waduk raksasa (seperti <em class='text-amber-300'>Way Apu, Lolak, maupun Batu Besi</em>) pasca gempa besar.</li>" +
+                            "<li><strong class='text-emerald-400'>Infrastruktur Sipil & SDA:</strong> Segera evaluasi stabilitas struktural, pengujian kekuatan tanah mekanik, serta review file engineering bendungan/waduk raksasa pasca gempa besar.</li>" +
                             "<li><strong class='text-rose-400'>Pusdalops Daerah:</strong> Aktivasi sirine <i>early warning</i> dan buka barikade evakuasi.</li>" +
                             "</ul>";
-                setTimeout(() => { messageHistory.innerHTML += `<div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed">${reply}</div>`; messageHistory.scrollTop = messageHistory.scrollHeight; }, 200);
+                setTimeout(() => { 
+                    messageHistory.innerHTML += `<div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed">${reply}</div>`; 
+                    messageHistory.scrollTop = messageHistory.scrollHeight; 
+                    speakText("Protokol mitigasi diaktifkan. Harap amati instruksi evaluasi struktural pada area pesisir jika terjadi gempa berdurasi dua puluh detik.");
+                }, 200);
             }
             else if(type === 'programmer') {
                 messageHistory.innerHTML += `<div class="bg-slate-800 p-2.5 rounded-xl text-right max-w-[85%] ml-auto text-white font-bold">Lihat Data Pengembang Sistem</div>`;
@@ -1619,35 +1715,91 @@
                              🌐 Facebook: <a href="https://www.facebook.com/m.hartadi" target="_blank" class="text-cyan-400 hover:underline">facebook.com/m.hartadi</a><br>
                              📝 Portal Blog: <a href="https://newbieonline7.blogspot.com/" target="_blank" class="text-pink-400 hover:underline">newbieonline7.blogspot.com</a><br>
                              📱 WhatsApp: <a href="https://wa.me/6282231036047" target="_blank" class="text-emerald-400 font-bold hover:underline">082231036047</a>`;
-                setTimeout(() => { messageHistory.innerHTML += `<div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed">${reply}</div>`; messageHistory.scrollTop = messageHistory.scrollHeight; }, 200);
+                setTimeout(() => { 
+                    messageHistory.innerHTML += `<div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed">${reply}</div>`; 
+                    messageHistory.scrollTop = messageHistory.scrollHeight; 
+                    speakText("Menampilkan otentikasi kreator dan pengembang sistem, Mohamad Hartadi.");
+                }, 200);
             }
         }
 
-        function processChatMessage() {
+        // FUNGSI CHATBOT API WIKIPEDIA DENGAN GOOGLE SEARCH
+        async function processChatMessage() {
             const inputField = document.getElementById('chatInput');
             const userRawText = inputField.value.trim();
             if (!userRawText) return;
 
             const messageHistory = document.getElementById('chatMessages');
             messageHistory.innerHTML += `<div class="bg-slate-800 p-2.5 rounded-xl text-right max-w-[85%] ml-auto text-white font-bold">${userRawText}</div>`;
-            
-            const q = userRawText.toLowerCase();
-            let response = "Kernel tidak mengenali perintah terminal. Gunakan tombol pintasan di atas untuk mempercepat modeling mitigasi bencana.";
-            
-            if (q.includes('gempa')) response = "<strong>[ANALISIS BERKAS InaTEWS]:</strong> Melacak rambatan gelombang seismik P-Wave & S-Wave di stasiun bumi untuk menghitung deformasi pemindahan batuan vertikal samudera.";
-            else if (q.includes('eta') || q.includes('arus') || q.includes('buoy')) response = "<strong>[MODELING WAKTU TIBA GELOMBANG]:</strong> Komputasi data fisis OBPR samudra dikombinasikan dengan pembacaan beach radar HF menghasilkan akurasi model prakiraan ETA secara presisi.";
-            else if (q.includes('20') || q.includes('mitigasi')) response = "<strong class='text-orange-400'>[PROTOKOL KESELAMATAN MANDIRI 20-20-20]:</strong> Guncangan gempa bumi kontinu 20 detik mengindikasikan waktu respons emas evakuasi mandiri pesisir pantai sejauh 20 menit menuju zona evakuasi vertikal aman minimum 20 meter.";
-
-            setTimeout(() => {
-                messageHistory.innerHTML += `<div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed">${response}</div>`;
-                messageHistory.scrollTop = messageHistory.scrollHeight;
-            }, 200);
+            messageHistory.scrollTop = messageHistory.scrollHeight;
             inputField.value = '';
+
+            const q = userRawText.toLowerCase();
+            let responseHtml = "";
+            let speechText = "";
+
+            // Deteksi Keyword Lokal Dulu
+            if (q.includes('gempa') && q.includes('analisis')) {
+                 responseHtml = "<strong>[ANALISIS BERKAS InaTEWS]:</strong> Melacak rambatan gelombang seismik P-Wave & S-Wave di stasiun bumi untuk menghitung deformasi pemindahan batuan vertikal samudera.";
+                 speechText = "Melacak rambatan gelombang seismik di stasiun bumi.";
+            } else if (q.includes('eta') || q.includes('arus') || q.includes('buoy')) {
+                 responseHtml = "<strong>[MODELING WAKTU TIBA GELOMBANG]:</strong> Komputasi data fisis OBPR samudra dikombinasikan dengan pembacaan beach radar HF menghasilkan akurasi model prakiraan ETA secara presisi.";
+                 speechText = "Komputasi fisis dilakukan untuk memprakirakan estimasi tiba gelombang secara presisi.";
+            } else if (q.includes('20') || q.includes('mitigasi')) {
+                 responseHtml = "<strong class='text-orange-400'>[PROTOKOL KESELAMATAN MANDIRI 20-20-20]:</strong> Guncangan gempa bumi kontinu 20 detik mengindikasikan waktu respons emas evakuasi mandiri pesisir pantai sejauh 20 menit menuju zona evakuasi vertikal aman minimum 20 meter.";
+                 speechText = "Protokol 20 20 20 adalah: jika gempa terasa 20 detik, evakuasi dalam 20 menit ke ketinggian 20 meter.";
+            } else {
+                 // Fetch API Wikipedia Global & Google Fallback
+                 const loadingId = "loader-" + Date.now();
+                 messageHistory.innerHTML += `<div id="${loadingId}" class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-400 leading-relaxed font-mono text-[11px]"><i class="fa-solid fa-circle-notch animate-spin text-cyan-400 mr-2"></i>Mengekstrak data global API dari internet...</div>`;
+                 messageHistory.scrollTop = messageHistory.scrollHeight;
+
+                 try {
+                     const apiRes = await fetch(`https://id.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&utf8=&format=json&origin=*`);
+                     const data = await apiRes.json();
+                     
+                     document.getElementById(loadingId).remove();
+
+                     if(data.query.search && data.query.search.length > 0) {
+                         const title = data.query.search[0].title;
+                         const snippet = data.query.search[0].snippet;
+                         const wikiLink = `https://id.wikipedia.org/wiki/${encodeURIComponent(title)}`;
+                         const googleLink = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+
+                         responseHtml = `<div class="flex flex-col gap-2">
+                                           <strong class="text-cyan-400">[DATA TERVERIFIKASI: ${title}]</strong>
+                                           <span class="text-slate-300">${snippet}...</span>
+                                           <div class="mt-2 pt-2 border-t border-slate-700/60 flex flex-wrap gap-3 text-[10px]">
+                                              <a href="${wikiLink}" target="_blank" class="text-sky-400 hover:text-white transition-colors bg-sky-950/40 px-2 py-1 rounded border border-sky-800"><i class="fa-brands fa-wikipedia-w mr-1"></i>Baca di Wikipedia</a>
+                                              <a href="${googleLink}" target="_blank" class="text-emerald-400 hover:text-white transition-colors bg-emerald-950/40 px-2 py-1 rounded border border-emerald-800"><i class="fa-brands fa-google mr-1"></i>Pencarian Google</a>
+                                           </div>
+                                         </div>`;
+                         speechText = `Saya menemukan informasi tentang ${title}. ${snippet.replace(/<[^>]*>?/gm, '')}`;
+                     } else {
+                         const googleLinkFallback = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+                         responseHtml = `<strong class="text-rose-400">[PENCARIAN KOSONG]</strong> Data tidak terindeks di API Wikipedia. Anda bisa mengecek lebih lanjut di mesin pencari.
+                         <br><br><a href="${googleLinkFallback}" target="_blank" class="text-emerald-400 text-[10px] bg-emerald-950/40 px-2 py-1 rounded border border-emerald-800"><i class="fa-brands fa-google mr-1"></i>Cari di Google</a>`;
+                         speechText = "Maaf, data tidak terindeks pada pustaka global. Silahkan gunakan tombol pencarian Google di layar.";
+                     }
+                 } catch (err) {
+                     if(document.getElementById(loadingId)) document.getElementById(loadingId).remove();
+                     responseHtml = "<strong class='text-red-400'>[ERROR NETWORK]:</strong> Tidak dapat terhubung ke server eksternal API web. Pastikan koneksi internet aktif.";
+                     speechText = "Terjadi gangguan jaringan saat mencoba mengambil rujukan data dari internet.";
+                 }
+            }
+
+            if(responseHtml) {
+                setTimeout(() => {
+                    messageHistory.innerHTML += `<div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed">${responseHtml}</div>`;
+                    messageHistory.scrollTop = messageHistory.scrollHeight;
+                    speakText(speechText);
+                }, 100);
+            }
         }
 
-        function openCreatorModal() { document.getElementById('creatorModal').classList.remove('hidden'); }
+        function openCreatorModal() { document.getElementById('creatorModal').classList.remove('hidden'); speakText("Mengakses informasi identitas kreator."); }
         function closeCreatorModal() { document.getElementById('creatorModal').classList.add('hidden'); }
-        function openHelpModal() { document.getElementById('helpModal').classList.remove('hidden'); }
+        function openHelpModal() { document.getElementById('helpModal').classList.remove('hidden'); speakText("Membuka petunjuk teknis sistem Ina-Tews."); }
         function closeHelpModal() { document.getElementById('helpModal').classList.add('hidden'); }
 
         window.onload = function() {
