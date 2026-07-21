@@ -140,6 +140,11 @@
 
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom scrollbar untuk panel chat Wikipedia & Direktori */
+        .chat-wiki-scroll::-webkit-scrollbar { width: 4px; }
+        .chat-wiki-scroll::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 4px; }
+        
         .bar-chart-value { transition: width 0.5s ease-in-out; }
 
         .radar-sweep { position: absolute; width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(from 0deg, transparent 70%, rgba(6, 182, 212, 0.8) 100%); animation: sweep 2s linear infinite; }
@@ -282,6 +287,9 @@
                     </button>
                     <button type="button" onclick="toggleThemeInterface()" class="bg-slate-950 border-2 border-[var(--border-color)] theme-light:bg-slate-200 text-slate-300 text-[10px] md:text-xs font-mono font-black px-3 md:px-4 py-2 md:py-2.5 rounded-xl transition-all hover:bg-slate-900 flex items-center justify-center gap-1.5 flex-1 md:flex-none">
                         <i id="themeIcon" class="fa-solid fa-moon"></i> <span id="themeText" class="hidden sm:inline">DARK</span>
+                    </button>
+                    <button type="button" onclick="cycleVoiceOptions()" class="bg-slate-950 border-2 border-purple-600 text-purple-400 text-[10px] md:text-xs font-mono font-black px-3 md:px-4 py-2 md:py-2.5 rounded-xl transition-all hover:bg-purple-950/40 flex items-center justify-center gap-1.5 flex-1 md:flex-none" data-tooltip="Ganti Gaya Suara Asisten (Pria/Wanita)">
+                        <i class="fa-solid fa-headset"></i> <span class="hidden sm:inline">SUARA</span>
                     </button>
                     <button type="button" onclick="openHelpModal()" class="bg-slate-950 border-2 border-emerald-600 text-emerald-400 text-[10px] md:text-xs font-mono font-black px-3 md:px-4 py-2 md:py-2.5 rounded-xl transition-all hover:bg-emerald-950/40 flex items-center justify-center gap-1.5 flex-1 md:flex-none">
                         <i class="fa-solid fa-circle-question"></i> <span class="hidden sm:inline">HELP</span>
@@ -572,7 +580,6 @@
             </button>
         </div>
 
-        <!-- VOICE ASSISTANT TOGGLE MOVED HERE -->
         <button onclick="toggleVoiceAssistant()" id="btnVoiceToggle" class="h-11 w-11 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.5)] cursor-pointer hover:scale-110 transition-all" title="Aktif/Nonaktifkan Asisten Suara (TTS)">
             <i id="iconVoiceToggle" class="fa-solid fa-volume-high text-base"></i>
         </button>
@@ -598,7 +605,7 @@
             </div>
         </div>
         
-        <div id="chatMessages" class="flex-1 p-3 overflow-y-auto space-y-3 font-mono text-xs text-slate-200 bg-slate-950">
+        <div id="chatMessages" class="flex-1 p-3 overflow-y-auto space-y-3 font-mono text-xs text-slate-200 bg-slate-950 chat-wiki-scroll">
             <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 leading-relaxed">
                 <span class="text-cyan-400 block font-bold mb-1">&gt;_ SYSTEM INITIALIZED:</span>
                 Konsol otentikasi aktif dan terhubung ke API Pengetahuan Global. Ketik atau gunakan suara Anda untuk memerintah, mencari referensi Wikipedia, atau melakukan kalkulasi navigasi.
@@ -606,6 +613,8 @@
         </div>
 
         <div class="p-2 bg-slate-900 border-t border-slate-800 flex gap-1.5 overflow-x-auto hide-scrollbar shrink-0">
+            <!-- SHORTCUT MY APLIKASI -->
+            <button onclick="triggerChatShortcut('my_aplikasi')" class="whitespace-nowrap px-3 py-1 bg-indigo-950 hover:bg-indigo-900 text-indigo-400 text-[10px] rounded border border-indigo-800 font-bold transition-all cursor-pointer"><i class="fa-solid fa-layer-group mr-1"></i>My Aplikasi</button>
             <button onclick="triggerChatShortcut('analisa_gempa')" class="whitespace-nowrap px-3 py-1 bg-slate-950 hover:bg-red-950 text-red-400 text-[10px] rounded border border-red-900 font-bold transition-all cursor-pointer"><i class="fa-solid fa-calculator mr-1"></i>Analisa Gempa</button>
             <button onclick="triggerChatShortcut('mitigasi')" class="whitespace-nowrap px-3 py-1 bg-slate-950 hover:bg-emerald-950 text-emerald-400 text-[10px] rounded border border-emerald-900 font-bold transition-all cursor-pointer"><i class="fa-solid fa-shield-halved mr-1"></i>Mitigasi</button>
             <button onclick="triggerChatShortcut('programmer')" class="whitespace-nowrap px-3 py-1 bg-fuchsia-950 hover:bg-fuchsia-900 text-fuchsia-400 text-[10px] rounded border border-fuchsia-800 font-black transition-all cursor-pointer"><i class="fa-solid fa-code mr-1"></i>Data Programmer</button>
@@ -748,6 +757,14 @@
 
         // Variable Fitur Asisten Suara
         let isVoiceAssistantEnabled = true;
+        let currentVoiceIndex = 0;
+        let availableVoices = [];
+
+        window.speechSynthesis.onvoiceschanged = () => {
+            // Ambil seluruh suara yang terinstal dan filter bahasa Indonesia
+            availableVoices = window.speechSynthesis.getVoices().filter(v => v.lang.includes('id') || v.lang.includes('ID'));
+            if(availableVoices.length === 0) availableVoices = window.speechSynthesis.getVoices(); // fallback jika tidak ada suara lokal
+        };
 
         const historicalCatalog = [
             { name: "GEMPA KATALISTIK & TSUNAMI ACEH (2004)", mag: 9.1, coords: [3.30, 95.60], depth: 25, fault: "thrust", desc: "Sesar Megathrust barat Sumatra patah secara masif, memicu rambatan gelombang tsunami destructive masif setinggi 30 meter." },
@@ -786,6 +803,17 @@
         });
 
         // ================= FITUR TEXT-TO-SPEECH ===================
+        
+        function cycleVoiceOptions() {
+            if (availableVoices.length > 1) {
+                currentVoiceIndex = (currentVoiceIndex + 1) % availableVoices.length;
+                let vName = availableVoices[currentVoiceIndex].name;
+                speakText("Gaya tema suara asisten telah diganti menjadi " + vName);
+            } else {
+                speakText("Gaya suara asisten gagal diubah, hanya ada satu sistem suara yang kompatibel di perangkat Anda.");
+            }
+        }
+
         function toggleVoiceAssistant() {
             isVoiceAssistantEnabled = !isVoiceAssistantEnabled;
             const icon = document.getElementById('iconVoiceToggle');
@@ -810,6 +838,11 @@
             const cleanText = text.replace(/<[^>]*>?/gm, ''); 
             const utterance = new SpeechSynthesisUtterance(cleanText);
             utterance.lang = 'id-ID';
+            
+            if (availableVoices.length > 0) {
+                utterance.voice = availableVoices[currentVoiceIndex];
+            }
+            
             window.speechSynthesis.speak(utterance);
         }
 
@@ -1670,7 +1703,79 @@
 
         function triggerChatShortcut(type) {
             const messageHistory = document.getElementById('chatMessages');
-            if(type === 'analisa_gempa') {
+            
+            if(type === 'my_aplikasi') {
+                messageHistory.innerHTML += `<div class="bg-slate-800 p-2.5 rounded-xl text-right max-w-[85%] ml-auto text-white font-bold">Direktori My Aplikasi</div>`;
+                
+                const appsList = [
+                    {u:"https://adikds.github.io/jarvis-ai/",i:"fa-robot",n:"JARVIS AI"},
+                    {u:"https://adikds.github.io/edu-market-pro/",i:"fa-graduation-cap",n:"EduMarket Pro"},
+                    {u:"https://adikds.github.io/iptv-terminal/",i:"fa-tv",n:"IPTV Terminal"},
+                    {u:"https://adikds.github.io/TV-streaming-live/",i:"fa-signal",n:"TV Streaming Live"},
+                    {u:"https://adikds.github.io/Al-Quran-Karim/",i:"fa-book-quran",n:"Al-Quran Karim"},
+                    {u:"https://adikds.github.io/-MEGA-ATLAS-FKG/",i:"fa-tooth",n:"Mega Atlas FKG"},
+                    {u:"https://adikds.github.io/SISTEM-MONITORING-SEISMIK-PERINGATAN-TSUNAMI/",i:"fa-wave-square",n:"Tsunami Alert"},
+                    {u:"https://adikds.github.io/MONITORING-PREDIKSI-STATUS-EI-NI-O-LA-NI-A/",i:"fa-temperature-half",n:"El Nino La Nina"},
+                    {u:"https://adikds.github.io/MONITORING-PREDIKSI-ANGIN-MUSON-INDONESIA/",i:"fa-wind",n:"Angin Muson"},
+                    {u:"https://adikds.github.io/INTEGRATED-DAM-ANALYTICS-ASSESSMENT-SYSTEM/",i:"fa-water",n:"Dam Analytics"},
+                    {u:"https://adikds.github.io/WAY-APU-DAM/",i:"fa-building-shield",n:"Way Apu Dam"},
+                    {u:"https://adikds.github.io/EVENT-DRIVEN-ARCHITECTURE-FOR-AI-AGENTS/",i:"fa-sitemap",n:"EDA AI Agents"},
+                    {u:"https://adikds.github.io/GeoStructPro-15-Essential-Geotechnical-Formulas/",i:"fa-mountain",n:"GeoStructPro 15"},
+                    {u:"https://adikds.github.io/GEOSTRUCT-PRO-20-FORMULA-GEOTECHNICAL/",i:"fa-layer-group",n:"GeoStruct Pro 20"},
+                    {u:"https://adikds.github.io/UNIFIED-SOIL-CLASSIFICATION-SYSTEM/",i:"fa-cubes",n:"USCS Soil"},
+                    {u:"https://adikds.github.io/AERORADAR-PRO/",i:"fa-plane",n:"AeroRadar Pro"},
+                    {u:"https://adikds.github.io/HYDRACANAL-PRO-GEOMETRIC-DESIGN/",i:"fa-water-ladder",n:"HydraCanal Pro"},
+                    {u:"https://adikds.github.io/financial-planner/",i:"fa-chart-line",n:"Financial Planner"},
+                    {u:"https://adikds.github.io/business-suite/",i:"fa-chart-bar",n:"Business Suite"},
+                    {u:"https://adikds.github.io/stock-manager/",i:"fa-boxes-stacked",n:"Stock Manager"},
+                    {u:"https://adikds.github.io/Aplikasi_Point_of_Sale_-POS-_atau_sistem_kasir/",i:"fa-cash-register",n:"POS Terminal Pro"},
+                    {u:"https://adikds.github.io/KEUANGANKU/",i:"fa-cash-register",n:"Keuanganku"},
+                    {u:"https://adikds.github.io/DARUSSYIFA-MEDIKA/",i: "fa-hospital",n:"DARUSSYIFA"},
+                    {u:"https://adikds.github.io/SKIN_SYIFA_AI/",i: "fa-magnifying-glass-chart",n:"SKIN SYIFA"},
+                    {u:"https://adikds.github.io/NEURO-PSYCH_AI/",i: "fa-brain",n:"NEURO-PSYCH"},
+                    {u:"https://adikds.github.io/SMILE-SYIFA-AI/",i: "fa-face-smile",n:"SMILE SYIFA"},
+                    {u:"https://adikds.github.io/DOKTER-AI/",i: "fa-user-doctor",n:"DOKTER AI"},
+                    {u: "https://www.f15library.com/", i: "fa-book-open-reader",n: "F15 Library"},
+                    {u: "https://adikds.github.io/ATLAS-GEOTEKNIK/", i: "fa-earth-americas",n: "Geotechnical"},
+                    {u: "https://adikds.github.io/STATISTICS_for_ENGINEERS-/", i: "fa-chart-pie",n: "Stats Engineers"},
+                    {u: "https://famelack.com/radio/id", i: "fa-radio", n: "Radio Online"},
+                    {u: "https://famelack.com/tv/id", i: "fa-tv",n: "TV Famelack"},
+                    {u: "https://adikds.github.io/Mega-Atlas-Kedokteran-Neurologi-Bedah-Syaraf/", i: "fa-brain",n: "Neurology"},
+                    {u: "https://adikds.github.io/Adi_Newbie/", i: "fa-user-astronaut",n: "Adi Newbie" }
+                ];
+
+                let appsHtml = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">';
+                appsList.forEach(app => {
+                    appsHtml += `
+                        <a href="${app.u}" target="_blank" class="flex items-center gap-2 p-2 bg-slate-900 hover:bg-slate-800 border border-indigo-500/30 hover:border-indigo-400 rounded-lg transition-colors text-decoration-none shadow-sm cursor-pointer group">
+                            <div class="w-7 h-7 flex items-center justify-center bg-indigo-950 rounded-full shrink-0 text-indigo-400 text-[10px] group-hover:scale-110 transition-transform">
+                                <i class="fa-solid ${app.i}"></i>
+                            </div>
+                            <span class="text-[9px] sm:text-[10px] font-bold text-slate-200 font-sans truncate group-hover:text-indigo-300 transition-colors">${app.n}</span>
+                        </a>
+                    `;
+                });
+                appsHtml += '</div>';
+
+                let reply = `
+                    <div class="bg-gradient-to-br from-slate-900 to-[#0f172a] border border-indigo-500/50 rounded-xl p-3 text-slate-200 shadow-[0_0_15px_rgba(99,102,241,0.3)] mt-2 w-full">
+                        <div class="flex items-center gap-2 text-indigo-400 font-bold font-mono-tech text-[10px] tracking-wider mb-1 uppercase border-b border-indigo-500/30 pb-2">
+                            <i class="fa-solid fa-layer-group text-sm"></i> My Applications Directory
+                        </div>
+                        <p class="text-[9px] sm:text-[10px] text-slate-400 font-sans mt-2 mb-2">Pilih aplikasi portofolio untuk membukanya di tab baru:</p>
+                        <div class="max-h-56 overflow-y-auto chat-wiki-scroll pr-1 pb-1">
+                            ${appsHtml}
+                        </div>
+                    </div>
+                `;
+                             
+                setTimeout(() => { 
+                    messageHistory.innerHTML += `<div class="pt-1 w-full">${reply}</div>`; 
+                    messageHistory.scrollTop = messageHistory.scrollHeight; 
+                    speakText("Menampilkan direktori aplikasi ekosistem terpadu milik Mohamad Hartadi.");
+                }, 200);
+            }
+            else if(type === 'analisa_gempa') {
                 messageHistory.innerHTML += `<div class="bg-slate-800 p-2.5 rounded-xl text-right max-w-[85%] ml-auto text-white font-bold">Minta Analisa Gempa Bumi Terkini</div>`;
                 let reply = "<strong class='text-cyan-400'>[ANALISIS TEKNIS CORE SEISMIK]:</strong> Melacak gelombang P-Wave & S-Wave... <br><br>";
                 let speechReply = "Melacak gelombang seismik.";
@@ -1723,7 +1828,7 @@
             }
         }
 
-        // FUNGSI CHATBOT API WIKIPEDIA DENGAN GOOGLE SEARCH
+        // FUNGSI CHATBOT API WIKIPEDIA DENGAN FULL EXTRACT
         async function processChatMessage() {
             const inputField = document.getElementById('chatInput');
             const userRawText = inputField.value.trim();
@@ -1749,37 +1854,64 @@
                  responseHtml = "<strong class='text-orange-400'>[PROTOKOL KESELAMATAN MANDIRI 20-20-20]:</strong> Guncangan gempa bumi kontinu 20 detik mengindikasikan waktu respons emas evakuasi mandiri pesisir pantai sejauh 20 menit menuju zona evakuasi vertikal aman minimum 20 meter.";
                  speechText = "Protokol 20 20 20 adalah: jika gempa terasa 20 detik, evakuasi dalam 20 menit ke ketinggian 20 meter.";
             } else {
-                 // Fetch API Wikipedia Global & Google Fallback
+                 // Fetch API Wikipedia Global (Extract Detail Penuh) & Google Fallback
                  const loadingId = "loader-" + Date.now();
-                 messageHistory.innerHTML += `<div id="${loadingId}" class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-400 leading-relaxed font-mono text-[11px]"><i class="fa-solid fa-circle-notch animate-spin text-cyan-400 mr-2"></i>Mengekstrak data global API dari internet...</div>`;
+                 messageHistory.innerHTML += `<div id="${loadingId}" class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-400 leading-relaxed font-mono text-[11px]"><i class="fa-solid fa-circle-notch animate-spin text-cyan-400 mr-2"></i>Mengekstrak data detail global dari internet...</div>`;
                  messageHistory.scrollTop = messageHistory.scrollHeight;
 
                  try {
-                     const apiRes = await fetch(`https://id.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&utf8=&format=json&origin=*`);
+                     // Update query API untuk mengambil full intro (prop=extracts) bukan sekedar snippet
+                     const apiRes = await fetch(`https://id.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(q)}&gsrlimit=1&prop=extracts&exintro=1&explaintext=1&utf8=&format=json&origin=*`);
                      const data = await apiRes.json();
                      
                      document.getElementById(loadingId).remove();
 
-                     if(data.query.search && data.query.search.length > 0) {
-                         const title = data.query.search[0].title;
-                         const snippet = data.query.search[0].snippet;
-                         const wikiLink = `https://id.wikipedia.org/wiki/${encodeURIComponent(title)}`;
-                         const googleLink = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+                     const googleLink = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+                     const geminiLink = `https://gemini.google.com/app?q=${encodeURIComponent(q)}`;
 
-                         responseHtml = `<div class="flex flex-col gap-2">
-                                           <strong class="text-cyan-400">[DATA TERVERIFIKASI: ${title}]</strong>
-                                           <span class="text-slate-300">${snippet}...</span>
-                                           <div class="mt-2 pt-2 border-t border-slate-700/60 flex flex-wrap gap-3 text-[10px]">
-                                              <a href="${wikiLink}" target="_blank" class="text-sky-400 hover:text-white transition-colors bg-sky-950/40 px-2 py-1 rounded border border-sky-800"><i class="fa-brands fa-wikipedia-w mr-1"></i>Baca di Wikipedia</a>
-                                              <a href="${googleLink}" target="_blank" class="text-emerald-400 hover:text-white transition-colors bg-emerald-950/40 px-2 py-1 rounded border border-emerald-800"><i class="fa-brands fa-google mr-1"></i>Pencarian Google</a>
+                     if(data.query && data.query.pages) {
+                         const pages = data.query.pages;
+                         const pageId = Object.keys(pages)[0];
+                         
+                         if(pageId && pageId !== "-1") {
+                             const title = pages[pageId].title;
+                             // Mengambil teks lengkap dari artikel (tidak terpotong ...)
+                             const extractText = pages[pageId].extract || "Penjelasan mendetail belum ditambahkan pada ensiklopedia Wikipedia.";
+                             const wikiLink = `https://id.wikipedia.org/wiki/${encodeURIComponent(title)}`;
+
+                             responseHtml = `<div class="flex flex-col gap-2 p-3 bg-gradient-to-br from-slate-900 to-[#0f172a] rounded-xl border-2 border-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                                               <div class="flex items-center gap-2 border-b border-indigo-500/30 pb-2">
+                                                   <i class="fa-solid fa-book-journal-whills text-indigo-400 text-lg"></i>
+                                                   <strong class="text-indigo-300 font-tech text-sm tracking-wide uppercase">[REFERENSI EKSTERNAL: ${title}]</strong>
+                                               </div>
+                                               
+                                               <div class="max-h-48 overflow-y-auto pr-1 chat-wiki-scroll">
+                                                 <p class="text-slate-200 text-[11px] leading-relaxed mt-1 font-mono">${extractText}</p>
+                                               </div>
+                                               
+                                               <div class="mt-2 pt-2 border-t border-slate-700/60 flex flex-wrap gap-2 text-[10px]">
+                                                  <a href="${wikiLink}" target="_blank" class="flex-1 text-center text-sky-300 hover:text-white transition-colors bg-sky-950/60 py-1.5 px-2 rounded-lg border border-sky-700/50 hover:bg-sky-900 font-bold shadow-md"><i class="fa-brands fa-wikipedia-w mr-1"></i>WIKIPEDIA</a>
+                                                  <a href="${googleLink}" target="_blank" class="flex-1 text-center text-emerald-300 hover:text-white transition-colors bg-emerald-950/60 py-1.5 px-2 rounded-lg border border-emerald-700/50 hover:bg-emerald-900 font-bold shadow-md"><i class="fa-brands fa-google mr-1"></i>GOOGLE SEARCH</a>
+                                                  <a href="${geminiLink}" target="_blank" class="flex-1 text-center text-fuchsia-300 hover:text-white transition-colors bg-fuchsia-950/60 py-1.5 px-2 rounded-lg border border-fuchsia-700/50 hover:bg-fuchsia-900 font-bold shadow-md"><i class="fa-solid fa-sparkles mr-1"></i>GOOGLE AI</a>
+                                               </div>
+                                             </div>`;
+                             speechText = `Menampilkan penjelasan eksternal terperinci dari Wikipedia tentang ${title}.`;
+                         }
+                     } 
+                     
+                     if(!responseHtml) {
+                         responseHtml = `<div class="flex flex-col gap-2 p-3 bg-gradient-to-br from-slate-900 to-rose-950/40 rounded-xl border-2 border-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.3)]">
+                                           <div class="flex items-center gap-2 border-b border-rose-500/30 pb-2">
+                                               <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg animate-pulse"></i>
+                                               <strong class="text-rose-300 font-tech text-sm tracking-wide uppercase">[DATA TIDAK TERINDEKS WIKIPEDIA]</strong>
+                                           </div>
+                                           <p class="text-slate-300 text-[11px] leading-relaxed mt-1 font-mono">Penjelasan detail mengenai entri ini tidak ditemukan dalam ensiklopedia. Anda dapat menjelajah lebih detail secara luas menggunakan mesin pencari interaktif.</p>
+                                           <div class="mt-2 pt-2 flex flex-wrap gap-2 text-[10px]">
+                                              <a href="${googleLink}" target="_blank" class="flex-1 text-center text-emerald-300 hover:text-white transition-colors bg-emerald-950/60 py-1.5 px-2 rounded-lg border border-emerald-700/50 hover:bg-emerald-900 font-bold shadow-md"><i class="fa-brands fa-google mr-1"></i>TELUSURI GOOGLE</a>
+                                              <a href="${geminiLink}" target="_blank" class="flex-1 text-center text-fuchsia-300 hover:text-white transition-colors bg-fuchsia-950/60 py-1.5 px-2 rounded-lg border border-fuchsia-700/50 hover:bg-fuchsia-900 font-bold shadow-md"><i class="fa-solid fa-sparkles mr-1"></i>TANYAKAN GOOGLE AI</a>
                                            </div>
                                          </div>`;
-                         speechText = `Saya menemukan informasi tentang ${title}. ${snippet.replace(/<[^>]*>?/gm, '')}`;
-                     } else {
-                         const googleLinkFallback = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
-                         responseHtml = `<strong class="text-rose-400">[PENCARIAN KOSONG]</strong> Data tidak terindeks di API Wikipedia. Anda bisa mengecek lebih lanjut di mesin pencari.
-                         <br><br><a href="${googleLinkFallback}" target="_blank" class="text-emerald-400 text-[10px] bg-emerald-950/40 px-2 py-1 rounded border border-emerald-800"><i class="fa-brands fa-google mr-1"></i>Cari di Google</a>`;
-                         speechText = "Maaf, data tidak terindeks pada pustaka global. Silahkan gunakan tombol pencarian Google di layar.";
+                         speechText = "Maaf, rincian data mengenai kueri tersebut tidak terindeks di pustaka global Wikipedia. Anda dapat menggunakan rujukan tombol pencarian Google di layar.";
                      }
                  } catch (err) {
                      if(document.getElementById(loadingId)) document.getElementById(loadingId).remove();
@@ -1790,7 +1922,11 @@
 
             if(responseHtml) {
                 setTimeout(() => {
-                    messageHistory.innerHTML += `<div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed">${responseHtml}</div>`;
+                    // Hanya menggunakan bungkus transparan jika responsHtml sudah memiliki card sendiri, agar tidak tumpang tindih.
+                    let wrapperClass = q.includes('gempa') || q.includes('eta') || q.includes('20') 
+                        ? "bg-slate-900 p-3 rounded-xl border border-slate-800 text-slate-300 leading-relaxed" 
+                        : "pt-1"; 
+                    messageHistory.innerHTML += `<div class="${wrapperClass}">${responseHtml}</div>`;
                     messageHistory.scrollTop = messageHistory.scrollHeight;
                     speakText(speechText);
                 }, 100);
